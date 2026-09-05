@@ -1,0 +1,32 @@
+{
+  "name": "finance-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sistema de finanças pessoais multi-usuário (casal) — monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "npm run dev --workspace=@finance/web",
+    "dev:api": "npm run dev --workspace=@finance/api",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "db:generate": "npm run db:generate --workspace=@finance/database",
+    "db:push": "npm run db:push --workspace=@finance/database",
+    "db:seed": "npm run db:seed --workspace=@finance/database",
+    "db:studio": "npm run db:studio --workspace=@finance/database",
+    "db:reset": "npm run db:reset --workspace=@finance/database"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "npm@10.8.2"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@finance/database",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "prisma generate && tsc -p tsconfig.json",
+    "dev": "prisma generate && tsc -w -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src",
+    "db:generate": "dotenv -e .env -- prisma generate",
+    "db:push": "dotenv -e .env -- prisma db push",
+    "db:seed": "dotenv -e .env -- tsx prisma/seed.ts",
+    "db:studio": "dotenv -e .env -- prisma studio",
+    "db:reset": "dotenv -e .env -- prisma db push --force-reset && dotenv -e .env -- tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3"
+  },
+  "devDependencies": {
+    "@finance/shared": "*",
+    "@eslint/js": "^9.17.0",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^2.4.3",
+    "dotenv-cli": "^11.0.0",
+    "eslint": "^9.17.0",
+    "prisma": "^6.19.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
+  }
+}
