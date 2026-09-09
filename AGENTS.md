@@ -51,7 +51,7 @@ Credenciais do seed: `gustavo@demo.dev` / `12345678` (USER_A) e `esposa@demo.dev
 
 ## Decisões-chave (não reverter sem motivo)
 
-- **NestJS 11**, não 12: o CLI do Nest 12 exige Node ≥22 e quebra no Node 20. `@nestjs/config@^4.0.4` e `@nestjs/mapped-types@^12.0.0` são os pares corretos do Nest 11.
+- **NestJS 11**, não 12: o CLI do Nest 12 exige Node ≥22 e quebra no Node 20. `@nestjs/config@^4.0.4` e `@nestjs/mapped-types@^2.1.1` são os pares corretos do Nest 11. **`@nestjs/mapped-types` NÃO pode subir pra v12** (ESM-only, `"type":"module"`): quebra `require()` no runtime da Vercel com `ERR_REQUIRE_ESM`. Ficar na `2.x` (CommonJS).
 - **Deploy = suporte nativo "NestJS on Vercel" (zero-config)**: a Vercel detecta `apps/api/src/main.ts` (bootstrap convencional com `app.listen`) e roda a API como uma única Vercel Function (Fluid compute). **Não usar `serverless-http` nem `@nestjs/platform-serverless`** (obsoleto) — desnecessários. CLI da Vercel ≥ 48.4.0 para `vercel dev`.
 - **Prisma 6.19.3** (pino): Prisma 7/8 mudou o generator (ESM + driver adapters). **Sem migrations** — schema sincronizado com `prisma db push`.
 - Os scripts do Prisma usam `dotenv -e .env -- prisma ...` porque o loader de `.env` do Prisma 6.19 se comportou mal neste setup.
@@ -72,7 +72,7 @@ Credenciais do seed: `gustavo@demo.dev` / `12345678` (USER_A) e `esposa@demo.dev
 - **2 projetos Vercel** (web e api), cada um com `Root Directory` apontando pra pasta do app:
   - **web**: framework Next.js, root `apps/web`. Build Command: `npx turbo run build --filter=@finance/web` (builda o `@finance/shared` antes). Env: `NEXT_PUBLIC_API_URL=https://<api-project>.vercel.app` (o client do web já anexa `/api`).
   - **api**: framework NestJS (zero-config, detecta `apps/api/src/main.ts`), root `apps/api`. **Sem** Build Command. Install Command: `npm install && npx turbo run build --filter=@finance/shared --filter=@finance/database` (gera o Prisma client + `dist` dos workspaces antes do bundle da Vercel). Env: `DATABASE_URL` (pooled), `JWT_ACCESS_SECRET`, `ACCESS_TOKEN_TTL`, `REFRESH_TOKEN_TTL`, `WEB_APP_URL=https://<web-project>.vercel.app`. `PORT`/`JWT_REFRESH_SECRET` não são usados.
-- **Node 20.x**: projeto Vercel exige selecionar "Node.js Version 20.x" nas Settings (raiz do repo tem `.nvmrc`). `@nestjs/mapped-types@12` exige ≥20.19.
+- **Node 20.x**: projeto Vercel exige selecionar "Node.js Version 20.x" nas Settings (raiz do repo tem `.nvmrc`). `@nestjs/mapped-types@2.1.1` é CJS e roda em qualquer Node ≥18.
 
 ## Status do projeto
 
