@@ -52,6 +52,7 @@ Credenciais do seed: `gustavo@demo.dev` / `12345678` (USER_A) e `esposa@demo.dev
 ## Decisões-chave (não reverter sem motivo)
 
 - **NestJS 11**, não 12: o CLI do Nest 12 exige Node ≥22 e quebra no Node 20. `@nestjs/config@^4.0.4` e `@nestjs/mapped-types@^12.0.0` são os pares corretos do Nest 11.
+- **Deploy = suporte nativo "NestJS on Vercel" (zero-config)**: a Vercel detecta `apps/api/src/main.ts` (bootstrap convencional com `app.listen`) e roda a API como uma única Vercel Function (Fluid compute). **Não usar `serverless-http` nem `@nestjs/platform-serverless`** (obsoleto) — desnecessários. CLI da Vercel ≥ 48.4.0 para `vercel dev`.
 - **Prisma 6.19.3** (pino): Prisma 7/8 mudou o generator (ESM + driver adapters). **Sem migrations** — schema sincronizado com `prisma db push`.
 - Os scripts do Prisma usam `dotenv -e .env -- prisma ...` porque o loader de `.env` do Prisma 6.19 se comportou mal neste setup.
 - Porta do Postgres Docker = **5433** (a 5432 do host já é usada por um PostgreSQL nativo do Windows).
@@ -65,7 +66,15 @@ Credenciais do seed: `gustavo@demo.dev` / `12345678` (USER_A) e `esposa@demo.dev
 - `structuredClone is not defined` no eslint = está rodando com Node 16 (trocar para 20).
 - Valores de data vêm como `"YYYY-MM-DD"` do cliente; parsear com `parseDateOnly` (fuso local), nunca `new Date(string)` (UTC desloca o dia em -03:00).
 
+## Deploy (M6) — como está montado
+
+- **Banco = Neon.tech** (Postgres gerenciado; Vercel não tem banco persistente). Em produção, `DATABASE_URL` = connection string **pooled** do Neon (host com `-pooler`), usada em runtime pelo Prisma. `prisma db push`/`seed` devem rodar com a string **direct** (sem pooler) — rodar local com `$env:DATABASE_URL` apontando pro Neon antes do comando (o `dotenv` dos scripts não sobrescreve env já setada).
+- **2 projetos Vercel** (web e api), cada um com `Root Directory` apontando pra pasta do app:
+  - **web**: framework Next.js, root `apps/web`. Build Command: `npx turbo run build --filter=@finance/web` (builda o `@finance/shared` antes). Env: `NEXT_PUBLIC_API_URL=https://<api-project>.vercel.app` (o client do web já anexa `/api`).
+  - **api**: framework NestJS (zero-config, detecta `apps/api/src/main.ts`), root `apps/api`. **Sem** Build Command. Install Command: `npm install && npx turbo run build --filter=@finance/shared --filter=@finance/database` (gera o Prisma client + `dist` dos workspaces antes do bundle da Vercel). Env: `DATABASE_URL` (pooled), `JWT_ACCESS_SECRET`, `ACCESS_TOKEN_TTL`, `REFRESH_TOKEN_TTL`, `WEB_APP_URL=https://<web-project>.vercel.app`. `PORT`/`JWT_REFRESH_SECRET` não são usados.
+- **Node 20.x**: projeto Vercel exige selecionar "Node.js Version 20.x" nas Settings (raiz do repo tem `.nvmrc`). `@nestjs/mapped-types@12` exige ≥20.19.
+
 ## Status do projeto
 
 - Concluídas: **M0** scaffold/monorepo/DB · **M1** auth+household · **M2** contas e cartões+faturas · **M3** transações (categorias, parcelas, transferências, tags) · **M4** budgets e metas · **M5** dashboards e relatórios (Recharts) + `paidBy`.
-- Pendente: **M6 — deploy na Vercel** (web + api serverless + Neon.tech, trocar `DATABASE_URL`). `@nestjs/platform-serverless` não existe mais no registry; decidir adaptador (ex.: `serverless-http`) ao fazer a M6.
+- Em andamento/pendente: **M6 — deploy na Vercel** (2 projetos + Neon.tech). Código já compatível (bootstrap nativo NestJS). Falta criar contas Neon/Vercel, conectar os projetos, setar envs e rodar `db:push`/`db:seed` na Neon (ver seção "Deploy (M6)" acima).
