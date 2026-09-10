@@ -69,7 +69,11 @@ export default function DashboardLayout({
         } as CSSProperties
       }
     >
-      <div aria-hidden className="pointer-events-none fixed inset-0 z-0" style={{ backgroundImage: theme.gradient }}>
+      <div
+        aria-hidden
+        className="pointer-events-none fixed left-0 right-0 top-0 z-0"
+        style={{ height: '100lvh', minHeight: '100vh', backgroundImage: theme.gradient }}
+      >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${theme.image})` }}
