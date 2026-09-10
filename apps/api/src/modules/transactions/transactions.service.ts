@@ -84,8 +84,8 @@ export class TransactionsService {
       }
       const from = await this.getAccount(user, dto.accountId);
       const to = await this.getAccount(user, dto.transferToAccountId);
-      if (from.type === 'CREDIT_CARD' || to.type === 'CREDIT_CARD') {
-        throw new BadRequestException('Transferências não podem envolver cartão de crédito');
+      if (from.type === 'CREDIT_CARD') {
+        throw new BadRequestException('A conta de origem não pode ser um cartão de crédito');
       }
       rows.push({
         ...base,

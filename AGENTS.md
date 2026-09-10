@@ -78,3 +78,4 @@ Credenciais do seed: `gustavo@demo.dev` / `12345678` (USER_A) e `esposa@demo.dev
 
 - Concluídas: **M0** scaffold/monorepo/DB · **M1** auth+household · **M2** contas e cartões+faturas · **M3** transações (categorias, parcelas, transferências, tags) · **M4** budgets e metas · **M5** dashboards e relatórios (Recharts) + `paidBy`.
 - Em andamento/pendente: **M6 — deploy na Vercel** (2 projetos + Neon.tech). Código já compatível (bootstrap nativo NestJS). Falta criar contas Neon/Vercel, conectar os projetos, setar envs e rodar `db:push`/`db:seed` na Neon (ver seção "Deploy (M6)" acima).
+- Pendente (B): **botão "Pagar fatura"** no card do cartão, que abre o diálogo de transação já como transferência com o cartão no destino, valor = total da fatura, conta de origem e data sugeridas. A transferência com cartão como destino (A) já está implementada.

@@ -352,9 +352,9 @@ export function TransactionDialog({
                     <SelectValue placeholder="Destino..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {bankAccounts.map((a) => (
+                    {allPaymentOptions.map((a) => (
                       <SelectItem key={a.id} value={a.id}>
-                        {a.name}
+                        {a.name} {a.type === 'CREDIT_CARD' ? '(cartão)' : ''}
                       </SelectItem>
                     ))}
                   </SelectContent>
