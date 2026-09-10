@@ -126,6 +126,7 @@ export const ACCOUNT_TYPE_LABEL: Record<AccountType, string> = {
   SAVINGS: 'Poupança',
   INVESTMENT: 'Investimento',
   CREDIT_CARD: 'Cartão de crédito',
+  BENEFIT: 'Vale/benefício',
 };
 
 export const OWNER_TYPE_LABEL: Record<OwnerType, string> = {

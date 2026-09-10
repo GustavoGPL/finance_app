@@ -123,7 +123,7 @@ export class DashboardService {
     const ownerTypes = ownerTypesForVisibility(user.memberRole, visibility ?? 'SELF');
     const [accounts, cards] = await Promise.all([
       this.prisma.account.findMany({
-        where: { householdId: user.householdId, isArchived: false, type: { not: 'CREDIT_CARD' }, ownerType: { in: ownerTypes } },
+        where: { householdId: user.householdId, isArchived: false, type: { notIn: ['CREDIT_CARD', 'BENEFIT'] }, ownerType: { in: ownerTypes } },
         select: { id: true, initialBalanceCents: true },
       }),
       this.prisma.account.findMany({
@@ -368,6 +368,8 @@ export class DashboardService {
     for (const acc of accounts) {
       if (acc.type === 'CREDIT_CARD') {
         debtTotal += (cardDebt.get(acc.id) ?? 0) - (cardPaid.get(acc.id) ?? 0);
+      } else if (acc.type === 'BENEFIT') {
+        continue;
       } else {
         cashTotal += acc.initialBalanceCents + (income.get(acc.id) ?? 0) - (outflow.get(acc.id) ?? 0) + (inflow.get(acc.id) ?? 0);
       }

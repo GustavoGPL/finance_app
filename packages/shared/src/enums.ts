@@ -4,7 +4,7 @@ export type MemberRole = (typeof MEMBER_ROLES)[number];
 export const OWNER_TYPES = ['USER_A', 'USER_B', 'SHARED'] as const;
 export type OwnerType = (typeof OWNER_TYPES)[number];
 
-export const ACCOUNT_TYPES = ['CHECKING', 'SAVINGS', 'INVESTMENT', 'CREDIT_CARD'] as const;
+export const ACCOUNT_TYPES = ['CHECKING', 'SAVINGS', 'INVESTMENT', 'CREDIT_CARD', 'BENEFIT'] as const;
 export type AccountType = (typeof ACCOUNT_TYPES)[number];
 
 export const TRANSACTION_TYPES = ['INCOME', 'EXPENSE', 'TRANSFER'] as const;

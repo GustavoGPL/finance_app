@@ -27,6 +27,7 @@ enum AccountType {
   SAVINGS
   INVESTMENT
   CREDIT_CARD
+  BENEFIT
 }
 
 enum TransactionType {

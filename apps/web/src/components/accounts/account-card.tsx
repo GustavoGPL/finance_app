@@ -1,6 +1,6 @@
 'use client';
 
-import { CreditCard, PiggyBank, Pencil, TrendingUp, Wallet } from 'lucide-react';
+import { CreditCard, PiggyBank, Pencil, TrendingUp, Utensils, Wallet } from 'lucide-react';
 import { formatBRL } from '@finance/shared';
 import { ACCOUNT_TYPE_LABEL, OWNER_TYPE_LABEL, type Account } from '@/lib/types';
 import { useInvoice } from '@/lib/queries/accounts';
@@ -14,6 +14,7 @@ const TYPE_ICON = {
   SAVINGS: PiggyBank,
   INVESTMENT: TrendingUp,
   CREDIT_CARD: CreditCard,
+  BENEFIT: Utensils,
 } as const;
 
 const dateFmt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit' });
