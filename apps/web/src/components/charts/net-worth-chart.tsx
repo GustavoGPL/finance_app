@@ -1,6 +1,7 @@
 'use client';
 
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { formatBRL } from '@finance/shared';
 import { formatShortBRL } from '@/lib/money';
 import type { NetWorthPoint } from '@/lib/queries/dashboard';
 
@@ -39,7 +40,7 @@ export function NetWorthChart({ data }: { data: NetWorthPoint[] }) {
             width={70}
           />
           <Tooltip
-            formatter={(value) => formatShortBRL(Number(value) * 100)}
+            formatter={(value) => formatBRL(Number(value) * 100)}
             labelFormatter={(label) => `Mês ${label}`}
             contentStyle={{ borderRadius: 8, border: '1px solid hsl(var(--border))' }}
           />
