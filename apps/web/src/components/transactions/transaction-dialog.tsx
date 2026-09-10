@@ -81,7 +81,7 @@ export function TransactionDialog({
   const createTx = useCreateTransaction();
   const updateTx = useUpdateTransaction();
   const { user: currentUser, household } = useAuth();
-  const { data: accounts } = useAccounts('ALL');
+  const { data: accounts } = useAccounts('SELF');
   const { data: categories } = useCategories();
   const { data: tags } = useTags();
   const [error, setError] = useState<string | null>(null);
@@ -99,6 +99,9 @@ export function TransactionDialog({
   const accountId = watch('accountId');
   const selectedAccount = accounts?.find((a) => a.id === accountId);
   const isCard = selectedAccount?.type === 'CREDIT_CARD';
+  const ownerOptions = OWNER_TYPES.filter(
+    (o) => o === 'SHARED' || o === (currentUser?.memberRole ?? 'USER_A'),
+  );
 
   useEffect(() => {
     if (open) {
@@ -370,7 +373,7 @@ export function TransactionDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {OWNER_TYPES.map((o) => (
+                  {ownerOptions.map((o) => (
                     <SelectItem key={o} value={o}>
                       {ownerTypeLabel(o, currentUser?.memberRole ?? 'USER_A')}
                     </SelectItem>

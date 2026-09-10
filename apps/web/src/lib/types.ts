@@ -135,9 +135,8 @@ export function ownerTypeLabel(ownerType: OwnerType, role: MemberRole): string {
 }
 
 export const VISIBILITY_LABEL: Record<Visibility, string> = {
-  ALL: 'Visão Geral',
   SELF: 'Minhas Finanças',
-  PARTNER: 'Finanças do Cônjuge',
+  COUPLE: 'Visão do Casal',
 };
 
 // ---------------------------------------------------------------------------

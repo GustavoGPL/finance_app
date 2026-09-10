@@ -53,6 +53,7 @@ export function AccountDialog({
   const updateAccount = useUpdateAccount();
   const { user } = useAuth();
   const memberRole = user?.memberRole ?? 'USER_A';
+  const ownerOptions = OWNER_TYPES.filter((o) => o === 'SHARED' || o === memberRole);
   const [error, setError] = useState<string | null>(null);
 
   const {
@@ -177,7 +178,7 @@ export function AccountDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {OWNER_TYPES.map((o) => (
+                  {ownerOptions.map((o) => (
                     <SelectItem key={o} value={o}>
                       {ownerTypeLabel(o, memberRole)}
                     </SelectItem>

@@ -47,7 +47,7 @@ export default function TransactionsPage() {
     search: search || undefined,
   });
 
-  const { data: accounts } = useAccounts('ALL');
+  const { data: accounts } = useAccounts(visibility);
   const { data: categories } = useCategories();
 
   const deleteTx = useDeleteTransaction();

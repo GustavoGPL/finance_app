@@ -16,7 +16,7 @@ export type TransactionStatus = (typeof TRANSACTION_STATUSES)[number];
 export const RECURRENCE_TYPES = ['ONCE', 'WEEKLY', 'MONTHLY', 'YEARLY'] as const;
 export type Recurrence = (typeof RECURRENCE_TYPES)[number];
 
-export const VISIBILITIES = ['SELF', 'PARTNER', 'ALL'] as const;
+export const VISIBILITIES = ['SELF', 'COUPLE'] as const;
 export type Visibility = (typeof VISIBILITIES)[number];
 
 export const CURRENCIES = ['BRL'] as const;

@@ -1,4 +1,4 @@
-import { partnerRoleOf, type MemberRole, type Visibility } from '@finance/shared';
+import { type MemberRole, type Visibility } from '@finance/shared';
 
 export interface Theme {
   key: 'dragonball' | 'onepiece' | 'crossover';
@@ -46,14 +46,12 @@ export const THEMES: Record<Theme['key'], Theme> = {
 
 /**
  * Tema conforme o filtro de visibilidade:
- * - SELF    → tema do próprio usuário (USER_A = Dragon Ball, USER_B = One Piece)
- * - PARTNER → tema do cônjuge
- * - ALL     → tema compartilhado (crossover)
+ * - SELF   → tema do próprio usuário (USER_A = Dragon Ball, USER_B = One Piece)
+ * - COUPLE → tema compartilhado (crossover)
  */
 export function themeForVisibility(memberRole: MemberRole, visibility: Visibility): Theme {
-  if (visibility === 'ALL') {
+  if (visibility === 'COUPLE') {
     return THEMES.crossover;
   }
-  const owner = visibility === 'PARTNER' ? partnerRoleOf(memberRole) : memberRole;
-  return owner === 'USER_A' ? THEMES.dragonball : THEMES.onepiece;
+  return memberRole === 'USER_A' ? THEMES.dragonball : THEMES.onepiece;
 }

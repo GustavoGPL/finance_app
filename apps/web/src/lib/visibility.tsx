@@ -17,8 +17,10 @@ export function VisibilityProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored && (VISIBILITIES as readonly string[]).includes(stored)) {
-      setVisibilityState(stored as Visibility);
+    if (!stored) return;
+    const migrated = stored === 'ALL' ? 'COUPLE' : stored === 'PARTNER' ? 'SELF' : stored;
+    if ((VISIBILITIES as readonly string[]).includes(migrated)) {
+      setVisibilityState(migrated as Visibility);
     }
   }, []);
 
