@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { parseDateOnly } from '@finance/shared';
 import { PrismaService } from '../../common/prisma.service';
 import type { AuthUser } from '../../common/interfaces/auth-user.interface';
 import { CreateGoalDto } from './dto/create-goal.dto';
@@ -37,7 +38,7 @@ export class GoalsService {
         householdId: user.householdId,
         name: dto.name,
         targetCents: dto.targetCents,
-        deadline: dto.deadline ? new Date(dto.deadline) : null,
+        deadline: dto.deadline ? parseDateOnly(dto.deadline) : null,
         color: dto.color ?? null,
       },
       include: { contributions: { select: CONTRIBUTION_SELECT } },
@@ -52,7 +53,7 @@ export class GoalsService {
       data: {
         ...(dto.name !== undefined && { name: dto.name }),
         ...(dto.targetCents !== undefined && { targetCents: dto.targetCents }),
-        ...(dto.deadline !== undefined && { deadline: dto.deadline ? new Date(dto.deadline) : null }),
+        ...(dto.deadline !== undefined && { deadline: dto.deadline ? parseDateOnly(dto.deadline) : null }),
         ...(dto.color !== undefined && { color: dto.color }),
       },
       include: { contributions: { select: CONTRIBUTION_SELECT, orderBy: { date: 'desc' } } },
@@ -74,7 +75,7 @@ export class GoalsService {
 
   async addContribution(user: AuthUser, id: string, dto: AddContributionDto) {
     await this.getOwned(user, id);
-    const date = dto.date ? new Date(dto.date) : new Date();
+    const date = dto.date ? parseDateOnly(dto.date) : new Date();
     const contribution = await this.prisma.goalContribution.create({
       data: {
         goalId: id,

@@ -6,6 +6,7 @@ import { formatBRL } from '@finance/shared';
 import { useVisibility } from '@/lib/visibility';
 import { useCategoryBreakdown, useCoupleSplit, useNetWorth, useOverview } from '@/lib/queries/dashboard';
 import { useAuth } from '@/lib/auth';
+import { formatDateOnly } from '@/lib/dates';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -122,7 +123,7 @@ export default function DashboardPage() {
                       <li key={`${item.kind}-${item.id}-${item.dueDate}`} className="flex items-center justify-between py-2.5">
                         <div className="min-w-0">
                           <p className="truncate text-sm font-medium">{item.description}</p>
-                          <p className="text-xs text-muted-foreground">Vence em {dateFmt.format(new Date(item.dueDate))}</p>
+                          <p className="text-xs text-muted-foreground">Vence em {formatDateOnly(item.dueDate, dateFmt)}</p>
                         </div>
                         <div className="flex shrink-0 items-center gap-2">
                           <Badge variant={item.kind === 'invoice' ? 'secondary' : 'outline'}>

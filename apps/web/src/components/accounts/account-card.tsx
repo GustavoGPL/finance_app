@@ -7,6 +7,7 @@ import { useInvoice } from '@/lib/queries/accounts';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { formatDateOnly } from '@/lib/dates';
 
 const TYPE_ICON = {
   CHECKING: Wallet,
@@ -68,7 +69,7 @@ export function AccountCard({
                 <span className="text-xs text-muted-foreground">Fatura {invoice?.label ?? '...'}</span>
                 {invoice && (
                   <span className="text-xs text-muted-foreground">
-                    vence {dateFmt.format(new Date(invoice.period.dueDate))}
+                    vence {formatDateOnly(invoice.period.dueDate, dateFmt)}
                   </span>
                 )}
               </div>

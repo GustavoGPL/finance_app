@@ -7,6 +7,7 @@ import { TRANSACTION_STATUS_LABEL, TRANSACTION_TYPE_LABEL } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { formatDateOnly } from '@/lib/dates';
 import { cn } from '@/lib/utils';
 
 const dateFmt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' });
@@ -97,7 +98,7 @@ function MobileCard({
             </span>
           </div>
           <p className="mt-0.5 text-xs text-muted-foreground">
-            {dateFmt.format(new Date(tx.date))}
+            {formatDateOnly(tx.date, dateFmt)}
             {installment}
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
@@ -182,7 +183,7 @@ export function TransactionTable({
             {transactions.map((tx) => (
               <TableRow key={tx.id}>
                 <TableCell className="whitespace-nowrap text-muted-foreground">
-                  {dateFmt.format(new Date(tx.date))}
+                  {formatDateOnly(tx.date, dateFmt)}
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">

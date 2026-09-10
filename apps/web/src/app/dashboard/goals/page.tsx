@@ -10,6 +10,7 @@ import { ContributionDialog } from '@/components/goals/contribution-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { formatDateOnly } from '@/lib/dates';
 import { cn } from '@/lib/utils';
 
 const dateFmt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -114,7 +115,7 @@ export default function GoalsPage() {
                     {goal.deadline && (
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        até {dateFmt.format(new Date(goal.deadline))}
+                        até {formatDateOnly(goal.deadline, dateFmt)}
                       </span>
                     )}
                   </div>
