@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CalendarClock, Loader2, PiggyBank, TrendingDown, TrendingUp, Wallet } from 'lucide-react';
+import { CalendarClock, PiggyBank, TrendingDown, TrendingUp, Wallet } from 'lucide-react';
 import { formatBRL } from '@finance/shared';
 import { useVisibility } from '@/lib/visibility';
 import { useCategoryBreakdown, useCoupleSplit, useNetWorth, useOverview } from '@/lib/queries/dashboard';
@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { ExpenseDonut } from '@/components/charts/expense-donut';
 import { NetWorthChart } from '@/components/charts/net-worth-chart';
+import { ThemedLoader } from '@/components/themed-loader';
 import { cn } from '@/lib/utils';
 
 const dateFmt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit' });
@@ -51,7 +52,7 @@ export default function DashboardPage() {
 
       {loading ? (
         <div className="flex justify-center py-20">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <ThemedLoader />
         </div>
       ) : (
         <>

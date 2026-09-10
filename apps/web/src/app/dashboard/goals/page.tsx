@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar, Loader2, Pencil, Plus, Trash2, TrendingUp, Wallet } from 'lucide-react';
+import { Calendar, Pencil, Plus, Trash2, TrendingUp, Wallet } from 'lucide-react';
 import { formatBRL } from '@finance/shared';
 import { useDeleteGoal, useGoals, useRemoveContribution } from '@/lib/queries/budgets';
 import type { SavingsGoal } from '@/lib/types';
 import { GoalDialog } from '@/components/goals/goal-dialog';
 import { ContributionDialog } from '@/components/goals/contribution-dialog';
 import { Button } from '@/components/ui/button';
+import { ThemedLoader } from '@/components/themed-loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { formatDateOnly } from '@/lib/dates';
@@ -61,7 +62,7 @@ export default function GoalsPage() {
 
       {isLoading ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <ThemedLoader />
         </div>
       ) : isError ? (
         <p className="text-sm text-destructive">Falha ao carregar metas.</p>

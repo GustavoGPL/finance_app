@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { useAccounts, useArchiveAccount } from '@/lib/queries/accounts';
 import { useVisibility } from '@/lib/visibility';
 import type { Account } from '@/lib/types';
 import { AccountCard } from '@/components/accounts/account-card';
 import { AccountDialog } from '@/components/accounts/account-dialog';
 import { Button } from '@/components/ui/button';
+import { ThemedLoader } from '@/components/themed-loader';
 
 export default function AccountsPage() {
   const { visibility } = useVisibility();
@@ -48,7 +49,7 @@ export default function AccountsPage() {
 
       {isLoading ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <ThemedLoader />
         </div>
       ) : isError ? (
         <p className="text-sm text-destructive">Falha ao carregar contas.</p>

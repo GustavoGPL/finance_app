@@ -1,11 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ArrowLeftRight, BarChart3, LayoutDashboard, Loader2, LogOut, PiggyBank, Target, Wallet } from 'lucide-react';
+import { ArrowLeftRight, BarChart3, LayoutDashboard, LogOut, PiggyBank, Target, Wallet } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
+import { useVisibility } from '@/lib/visibility';
+import { themeForVisibility } from '@/lib/themes';
 import { Button } from '@/components/ui/button';
+import { ThemedLoader } from '@/components/themed-loader';
 import { VisibilitySwitch } from '@/components/visibility-switch';
 import { VisibilitySelect } from '@/components/visibility-select';
 import { cn } from '@/lib/utils';
@@ -25,6 +28,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const { user, household, loading, logout } = useAuth();
+  const { visibility } = useVisibility();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -37,7 +41,7 @@ export default function DashboardLayout({
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        <ThemedLoader />
       </div>
     );
   }
@@ -52,10 +56,33 @@ export default function DashboardLayout({
       : pathname.startsWith(`${item.href}/`);
   }
 
+  const theme = themeForVisibility(user.memberRole, visibility);
+
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-40 border-b bg-card/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
+    <div
+      className="relative min-h-screen"
+      style={
+        {
+          '--primary': theme.primary,
+          '--primary-foreground': theme.primaryForeground,
+          '--ring': theme.ring,
+        } as CSSProperties
+      }
+    >
+      <div aria-hidden className="pointer-events-none fixed inset-0 z-0" style={{ backgroundImage: theme.gradient }}>
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${theme.image})` }}
+        />
+        <div className="absolute inset-0 bg-background/90" />
+      </div>
+
+      <header className="relative sticky top-0 z-40 border-b border-primary/30 bg-background/55 backdrop-blur-md">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/25 via-primary/5 to-transparent"
+        />
+        <div className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
           <div className="flex min-w-0 items-center gap-6">
             <span className="whitespace-nowrap text-base font-semibold tracking-tight">Finance App</span>
             <span className="hidden truncate text-sm text-muted-foreground lg:inline">
@@ -81,7 +108,7 @@ export default function DashboardLayout({
           </div>
         </div>
 
-        <nav className="mx-auto hidden max-w-6xl gap-1 px-4 md:flex">
+        <nav className="relative mx-auto hidden max-w-6xl gap-1 px-4 md:flex">
           {NAV.map((item) => {
             const Icon = item.icon;
             const active = isActive(item);
@@ -104,9 +131,9 @@ export default function DashboardLayout({
         </nav>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 pb-28 pt-6 md:pb-10 md:pt-8">{children}</main>
+      <main className="relative z-10 mx-auto max-w-6xl px-4 pb-28 pt-6 md:pb-10 md:pt-8">{children}</main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-primary/30 bg-background/70 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden">
         <div className="mx-auto grid max-w-lg grid-cols-6">
           {NAV.map((item) => {
             const Icon = item.icon;

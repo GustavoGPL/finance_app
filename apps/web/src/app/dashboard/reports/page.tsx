@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
 import { formatBRL } from '@finance/shared';
 import { useVisibility } from '@/lib/visibility';
 import { useCategoryBreakdown, useNetWorth } from '@/lib/queries/dashboard';
@@ -9,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { NetWorthChart } from '@/components/charts/net-worth-chart';
 import { ExpenseDonut } from '@/components/charts/expense-donut';
+import { ThemedLoader } from '@/components/themed-loader';
 
 export default function ReportsPage() {
   const { visibility } = useVisibility();
@@ -42,7 +42,7 @@ export default function ReportsPage() {
 
       {loading ? (
         <div className="flex justify-center py-20">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <ThemedLoader />
         </div>
       ) : (
         <>

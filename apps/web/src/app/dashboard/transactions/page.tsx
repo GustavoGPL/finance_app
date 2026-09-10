@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, type ReactNode } from 'react';
-import { Loader2, Plus, Search } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import { formatBRL, type TransactionType } from '@finance/shared';
 import { useVisibility } from '@/lib/visibility';
 import { useDeleteTransaction, useTransactions } from '@/lib/queries/transactions';
@@ -11,6 +11,7 @@ import type { Transaction } from '@/lib/types';
 import { TransactionTable } from '@/components/transactions/transaction-table';
 import { TransactionDialog } from '@/components/transactions/transaction-dialog';
 import { Button } from '@/components/ui/button';
+import { ThemedLoader } from '@/components/themed-loader';
 import { Input } from '@/components/ui/input';
 import {
   Card,
@@ -200,7 +201,7 @@ export default function TransactionsPage() {
 
       {isLoading ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <ThemedLoader />
         </div>
       ) : isError ? (
         <p className="text-sm text-destructive">Falha ao carregar transações.</p>

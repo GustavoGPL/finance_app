@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2, Pencil, Plus, Trash2 } from 'lucide-react';
+import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { formatBRL } from '@finance/shared';
 import { useBudgets, useDeleteBudget } from '@/lib/queries/budgets';
 import type { Budget } from '@/lib/types';
 import { BudgetDialog } from '@/components/budgets/budget-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ThemedLoader } from '@/components/themed-loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
@@ -64,7 +65,7 @@ export default function BudgetsPage() {
 
       {isLoading ? (
         <div className="flex justify-center py-16">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <ThemedLoader />
         </div>
       ) : isError ? (
         <p className="text-sm text-destructive">Falha ao carregar orçamentos.</p>

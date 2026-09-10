@@ -67,3 +67,24 @@
     }
   }
 }
+
+.op-ship {
+  transform-origin: 50% 85%;
+  animation: op-sail 2.6s ease-in-out infinite;
+}
+
+@keyframes op-sail {
+  0%,
+  100% {
+    transform: translate(-2px, 0) rotate(-2deg);
+  }
+  50% {
+    transform: translate(2px, -3px) rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-ship {
+    animation: none;
+  }
+}
