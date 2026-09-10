@@ -51,9 +51,10 @@ export default function DashboardLayout({
   }
 
   function isActive(item: { href: string }) {
-    return item.href === '/dashboard'
-      ? pathname === item.href
-      : pathname.startsWith(`${item.href}/`);
+    if (item.href === '/dashboard') {
+      return pathname === item.href;
+    }
+    return pathname === item.href || pathname.startsWith(`${item.href}/`);
   }
 
   const theme = themeForVisibility(user.memberRole, visibility);
