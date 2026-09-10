@@ -6,8 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ACCOUNT_TYPES, OWNER_TYPES, type AccountType, type OwnerType } from '@finance/shared';
 import { useCreateAccount, useUpdateAccount } from '@/lib/queries/accounts';
+import { useAuth } from '@/lib/auth';
 import { centsToInput, parseMoneyInput } from '@/lib/money';
-import { ACCOUNT_TYPE_LABEL, OWNER_TYPE_LABEL, type Account } from '@/lib/types';
+import { ACCOUNT_TYPE_LABEL, ownerTypeLabel, type Account } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -50,6 +51,8 @@ export function AccountDialog({
 }) {
   const createAccount = useCreateAccount();
   const updateAccount = useUpdateAccount();
+  const { user } = useAuth();
+  const memberRole = user?.memberRole ?? 'USER_A';
   const [error, setError] = useState<string | null>(null);
 
   const {
@@ -176,7 +179,7 @@ export function AccountDialog({
                 <SelectContent>
                   {OWNER_TYPES.map((o) => (
                     <SelectItem key={o} value={o}>
-                      {OWNER_TYPE_LABEL[o]}
+                      {ownerTypeLabel(o, memberRole)}
                     </SelectItem>
                   ))}
                 </SelectContent>

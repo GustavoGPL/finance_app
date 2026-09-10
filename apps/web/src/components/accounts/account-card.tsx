@@ -2,8 +2,9 @@
 
 import { CreditCard, PiggyBank, Pencil, TrendingUp, Utensils, Wallet } from 'lucide-react';
 import { formatBRL } from '@finance/shared';
-import { ACCOUNT_TYPE_LABEL, OWNER_TYPE_LABEL, type Account } from '@/lib/types';
+import { ACCOUNT_TYPE_LABEL, ownerTypeLabel, type Account } from '@/lib/types';
 import { useInvoice } from '@/lib/queries/accounts';
+import { useAuth } from '@/lib/auth';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -30,6 +31,8 @@ export function AccountCard({
 }) {
   const Icon = TYPE_ICON[account.type];
   const isCard = account.type === 'CREDIT_CARD';
+  const { user } = useAuth();
+  const memberRole = user?.memberRole ?? 'USER_A';
   const { data: invoice } = useInvoice(account.id, isCard);
 
   return (
@@ -44,7 +47,7 @@ export function AccountCard({
             <p className="mt-1 truncate text-xs text-muted-foreground">{ACCOUNT_TYPE_LABEL[account.type]}</p>
           </div>
         </div>
-        <Badge variant="secondary" className="shrink-0">{OWNER_TYPE_LABEL[account.ownerType]}</Badge>
+        <Badge variant="secondary" className="shrink-0">{ownerTypeLabel(account.ownerType, memberRole)}</Badge>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4">
         {isCard ? (

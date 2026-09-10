@@ -129,11 +129,10 @@ export const ACCOUNT_TYPE_LABEL: Record<AccountType, string> = {
   BENEFIT: 'Vale/benefício',
 };
 
-export const OWNER_TYPE_LABEL: Record<OwnerType, string> = {
-  USER_A: 'Meu',
-  USER_B: 'Do cônjuge',
-  SHARED: 'Compartilhado',
-};
+export function ownerTypeLabel(ownerType: OwnerType, role: MemberRole): string {
+  if (ownerType === 'SHARED') return 'Compartilhado';
+  return ownerType === role ? 'Meu' : 'Do cônjuge';
+}
 
 export const VISIBILITY_LABEL: Record<Visibility, string> = {
   ALL: 'Visão Geral',

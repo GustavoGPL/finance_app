@@ -22,6 +22,7 @@ import {
   RECURRENCE_LABEL,
   TRANSACTION_STATUS_LABEL,
   TRANSACTION_TYPE_LABEL,
+  ownerTypeLabel,
   type Transaction,
 } from '@/lib/types';
 import { Button } from '@/components/ui/button';
@@ -371,7 +372,7 @@ export function TransactionDialog({
                 <SelectContent>
                   {OWNER_TYPES.map((o) => (
                     <SelectItem key={o} value={o}>
-                      {o === 'SHARED' ? 'Compartilhado' : o === 'USER_A' ? 'Meu' : 'Do cônjuge'}
+                      {ownerTypeLabel(o, currentUser?.memberRole ?? 'USER_A')}
                     </SelectItem>
                   ))}
                 </SelectContent>
