@@ -96,6 +96,7 @@ export function TransactionDialog({
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const type = watch('type') ?? 'EXPENSE';
+  const ownerType = watch('ownerType') ?? 'SHARED';
   const accountId = watch('accountId');
   const selectedAccount = accounts?.find((a) => a.id === accountId);
   const isCard = selectedAccount?.type === 'CREDIT_CARD';
@@ -118,12 +119,12 @@ export function TransactionDialog({
         ownerType: transaction?.ownerType ?? 'SHARED',
         status: transaction?.status ?? 'PAID',
         recurrence: transaction?.recurrence ?? 'ONCE',
-        paidById: transaction?.paidBy?.id ?? '',
+        paidById: transaction?.paidBy?.id ?? currentUser?.id ?? '',
         tags: transaction?.tags.join(', ') ?? '',
       });
       setError(null);
     }
-  }, [open, transaction, reset]);
+  }, [open, transaction, reset, currentUser?.id]);
 
   const categoryOptions = useMemo(() => {
     if (!categories) return [];
@@ -419,7 +420,7 @@ export function TransactionDialog({
             </div>
           </div>
 
-          {type === 'EXPENSE' && (
+          {type === 'EXPENSE' && ownerType === 'SHARED' && (
             <div className="space-y-2">
               <Label>
                 Pago por <span className="text-muted-foreground">(para a divisão do casal)</span>
