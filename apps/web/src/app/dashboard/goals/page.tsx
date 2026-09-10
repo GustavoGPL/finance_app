@@ -47,12 +47,12 @@ export default function GoalsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Metas de economia</h1>
           <p className="text-sm text-muted-foreground">Objetivos de longo prazo do casal.</p>
         </div>
-        <Button onClick={openCreate}>
+        <Button onClick={openCreate} className="w-full sm:w-auto">
           <Plus className="h-4 w-4" />
           Nova meta
         </Button>
@@ -80,13 +80,13 @@ export default function GoalsPage() {
             return (
               <Card key={goal.id} className="flex flex-col">
                 <CardHeader className="flex-row items-start justify-between space-y-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex min-w-0 items-center gap-2">
                     {goal.color && (
-                      <span className="h-3 w-3 rounded-full" style={{ backgroundColor: goal.color }} />
+                      <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: goal.color }} />
                     )}
-                    <CardTitle className="text-base">{goal.name}</CardTitle>
+                    <CardTitle className="truncate text-base">{goal.name}</CardTitle>
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex shrink-0 gap-1">
                     <Button variant="ghost" size="icon" onClick={() => openEdit(goal)} title="Editar">
                       <Pencil className="h-4 w-4" />
                     </Button>

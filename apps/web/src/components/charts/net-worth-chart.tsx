@@ -23,7 +23,14 @@ export function NetWorthChart({ data }: { data: NetWorthPoint[] }) {
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-          <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
+          <XAxis
+            dataKey="label"
+            tickLine={false}
+            axisLine={false}
+            fontSize={12}
+            minTickGap={24}
+            tickMargin={8}
+          />
           <YAxis
             tickLine={false}
             axisLine={false}

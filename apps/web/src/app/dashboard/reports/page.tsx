@@ -25,7 +25,7 @@ export default function ReportsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Relatórios</h1>
           <p className="text-sm text-muted-foreground">
@@ -36,7 +36,7 @@ export default function ReportsPage() {
           type="month"
           value={monthYear}
           onChange={(e) => e.target.value && setMonthYear(e.target.value)}
-          className="w-40"
+          className="w-full sm:w-48"
         />
       </div>
 

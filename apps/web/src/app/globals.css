@@ -57,3 +57,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  @media (max-width: 639px) {
+    input:not([type='checkbox']):not([type='radio']):not([type='button']):not([type='submit']):not([type='range']):not([type='color']),
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+}

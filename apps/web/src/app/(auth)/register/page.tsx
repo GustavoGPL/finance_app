@@ -74,7 +74,7 @@ export default function RegisterPage() {
       </CardHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <Button
               type="button"
               variant={mode === 'create' ? 'default' : 'outline'}
@@ -101,7 +101,7 @@ export default function RegisterPage() {
             <Input id="email" type="email" placeholder="voce@email.com" {...register('email')} />
             {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="password">Senha</Label>
               <Input id="password" type="password" {...register('password')} />

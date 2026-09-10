@@ -224,7 +224,7 @@ export function TransactionDialog({
           <DialogDescription>Registre receitas, despesas ou transferências.</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             {TRANSACTION_TYPES.map((t) => (
               <Button
                 key={t}
@@ -358,7 +358,7 @@ export function TransactionDialog({
             </div>
           )}
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div className="space-y-2">
               <Label>Pertence a</Label>
               <Select

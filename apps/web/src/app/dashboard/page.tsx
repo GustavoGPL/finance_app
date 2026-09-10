@@ -33,14 +33,19 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Visão geral</h1>
           <p className="text-sm text-muted-foreground">
             Olá, {user?.name.split(' ')[0]} — acompanhe as finanças do casal.
           </p>
         </div>
-        <Input type="month" value={monthYear} onChange={(e) => e.target.value && setMonthYear(e.target.value)} className="w-40" />
+        <Input
+          type="month"
+          value={monthYear}
+          onChange={(e) => e.target.value && setMonthYear(e.target.value)}
+          className="w-full sm:w-48"
+        />
       </div>
 
       {loading ? (
@@ -119,7 +124,7 @@ export default function DashboardPage() {
                           <p className="truncate text-sm font-medium">{item.description}</p>
                           <p className="text-xs text-muted-foreground">Vence em {dateFmt.format(new Date(item.dueDate))}</p>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex shrink-0 items-center gap-2">
                           <Badge variant={item.kind === 'invoice' ? 'secondary' : 'outline'}>
                             {item.kind === 'invoice' ? 'Fatura' : 'Conta'}
                           </Badge>

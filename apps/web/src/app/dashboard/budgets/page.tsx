@@ -43,19 +43,19 @@ export default function BudgetsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Orçamentos</h1>
           <p className="text-sm text-muted-foreground">Limites mensais de gastos por categoria.</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Input
             type="month"
             value={monthYear}
             onChange={(e) => e.target.value && setMonthYear(e.target.value)}
-            className="w-40"
+            className="w-full sm:w-48"
           />
-          <Button onClick={openCreate}>
+          <Button onClick={openCreate} className="w-full sm:w-auto">
             <Plus className="h-4 w-4" />
             Novo orçamento
           </Button>
@@ -87,16 +87,16 @@ export default function BudgetsPage() {
             return (
               <Card key={budget.id}>
                 <CardHeader className="flex-row items-start justify-between space-y-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex min-w-0 items-center gap-2">
                     {budget.category.color && (
                       <span
-                        className="h-3 w-3 rounded-full"
+                        className="h-3 w-3 shrink-0 rounded-full"
                         style={{ backgroundColor: budget.category.color }}
                       />
                     )}
-                    <CardTitle className="text-base">{budget.category.name}</CardTitle>
+                    <CardTitle className="truncate text-base">{budget.category.name}</CardTitle>
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex shrink-0 gap-1">
                     <Button variant="ghost" size="icon" onClick={() => openEdit(budget)} title="Editar">
                       <Pencil className="h-4 w-4" />
                     </Button>

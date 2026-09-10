@@ -85,12 +85,12 @@ export default function TransactionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Transações</h1>
           <p className="text-sm text-muted-foreground">Lançamentos de receitas, despesas e transferências.</p>
         </div>
-        <Button onClick={openCreate}>
+        <Button onClick={openCreate} className="w-full sm:w-auto">
           <Plus className="h-4 w-4" />
           Nova transação
         </Button>
@@ -123,7 +123,7 @@ export default function TransactionsPage() {
         </Card>
       </div>
 
-      <div className="flex flex-wrap items-end gap-3 rounded-xl border p-3">
+      <div className="grid grid-cols-1 gap-3 rounded-xl border p-3 sm:grid-cols-2 xl:grid-cols-5">
         <div className="space-y-1">
           <LabelText>Mês</LabelText>
           <Input
@@ -135,13 +135,13 @@ export default function TransactionsPage() {
               setYear(Number(y));
               setMonth(Number(m));
             }}
-            className="w-40"
+            className="w-full"
           />
         </div>
         <div className="space-y-1">
           <LabelText>Tipo</LabelText>
           <Select value={type} onValueChange={setType}>
-            <SelectTrigger className="w-36">
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Todos" />
             </SelectTrigger>
             <SelectContent>
@@ -155,7 +155,7 @@ export default function TransactionsPage() {
         <div className="space-y-1">
           <LabelText>Conta</LabelText>
           <Select value={accountId} onValueChange={setAccountId}>
-            <SelectTrigger className="w-44">
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Todas" />
             </SelectTrigger>
             <SelectContent>
@@ -171,7 +171,7 @@ export default function TransactionsPage() {
         <div className="space-y-1">
           <LabelText>Categoria</LabelText>
           <Select value={categoryId} onValueChange={setCategoryId}>
-            <SelectTrigger className="w-48">
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Todas" />
             </SelectTrigger>
             <SelectContent>
@@ -184,7 +184,7 @@ export default function TransactionsPage() {
             </SelectContent>
           </Select>
         </div>
-        <div className="ml-auto space-y-1">
+        <div className="space-y-1">
           <LabelText>Buscar</LabelText>
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -192,7 +192,7 @@ export default function TransactionsPage() {
               placeholder="Buscar..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-44 pl-8"
+              className="w-full pl-8"
             />
           </div>
         </div>

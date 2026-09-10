@@ -7,6 +7,7 @@ import { ArrowLeftRight, BarChart3, LayoutDashboard, Loader2, LogOut, PiggyBank,
 import { useAuth } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { VisibilitySwitch } from '@/components/visibility-switch';
+import { VisibilitySelect } from '@/components/visibility-select';
 import { cn } from '@/lib/utils';
 
 const NAV = [
@@ -45,52 +46,88 @@ export default function DashboardLayout({
     return null;
   }
 
+  function isActive(item: { href: string }) {
+    return item.href === '/dashboard'
+      ? pathname === item.href
+      : pathname.startsWith(`${item.href}/`);
+  }
+
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-10 border-b bg-card/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-          <div className="flex items-center gap-6">
-            <span className="text-base font-semibold tracking-tight">Finance App</span>
-            <span className="hidden text-sm text-muted-foreground sm:inline">
+      <header className="sticky top-0 z-40 border-b bg-card/95 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
+          <div className="flex min-w-0 items-center gap-6">
+            <span className="whitespace-nowrap text-base font-semibold tracking-tight">Finance App</span>
+            <span className="hidden truncate text-sm text-muted-foreground lg:inline">
               {household?.name ?? 'Finanças do casal'}
             </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <VisibilitySwitch className="hidden sm:flex" />
-            <span className="text-sm font-medium">{user.name}</span>
-            <Button variant="outline" size="sm" onClick={() => void logout()}>
+            <VisibilitySelect className="sm:hidden" />
+            <span className="hidden max-w-[10rem] truncate text-sm font-medium md:inline">
+              {user.name}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => void logout()}
+              aria-label="Sair"
+              className="px-2 sm:px-3"
+            >
               <LogOut className="h-4 w-4" />
-              Sair
+              <span className="hidden sm:inline">Sair</span>
             </Button>
           </div>
         </div>
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 pb-0">
-          <nav className="flex gap-1">
-            {NAV.map((item) => {
-              const Icon = item.icon;
-              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
-              const activeExact = item.href === '/dashboard' ? pathname === item.href : active;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm font-medium transition-colors',
-                    activeExact
-                      ? 'border-primary text-foreground'
-                      : 'border-transparent text-muted-foreground hover:text-foreground',
-                  )}
-                >
-                  <Icon className="h-4 w-4" />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-          <VisibilitySwitch className="mb-2 sm:hidden" />
-        </div>
+
+        <nav className="mx-auto hidden max-w-6xl gap-1 px-4 md:flex">
+          {NAV.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm font-medium transition-colors',
+                  active
+                    ? 'border-primary text-foreground'
+                    : 'border-transparent text-muted-foreground hover:text-foreground',
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
       </header>
-      <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+
+      <main className="mx-auto max-w-6xl px-4 pb-28 pt-6 md:pb-10 md:pt-8">{children}</main>
+
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+        <div className="mx-auto grid max-w-lg grid-cols-6">
+          {NAV.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-label={item.label}
+                className={cn(
+                  'flex flex-col items-center gap-1 px-1 pb-2 pt-2.5 text-[10px] font-medium leading-none transition-colors',
+                  active ? 'text-primary' : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                <Icon className="h-5 w-5" />
+                <span className="max-w-full truncate">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </div>
   );
 }

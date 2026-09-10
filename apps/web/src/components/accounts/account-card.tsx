@@ -33,16 +33,16 @@ export function AccountCard({
   return (
     <Card className="flex flex-col">
       <CardHeader className="flex-row items-start justify-between space-y-0">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
             <Icon className="h-5 w-5" />
           </div>
-          <div>
-            <p className="font-medium leading-none">{account.name}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{ACCOUNT_TYPE_LABEL[account.type]}</p>
+          <div className="min-w-0">
+            <p className="truncate font-medium leading-none">{account.name}</p>
+            <p className="mt-1 truncate text-xs text-muted-foreground">{ACCOUNT_TYPE_LABEL[account.type]}</p>
           </div>
         </div>
-        <Badge variant="secondary">{OWNER_TYPE_LABEL[account.ownerType]}</Badge>
+        <Badge variant="secondary" className="shrink-0">{OWNER_TYPE_LABEL[account.ownerType]}</Badge>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4">
         {isCard ? (
