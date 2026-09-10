@@ -26,7 +26,7 @@ export function ExpenseDonut({
   }
 
   return (
-    <div className="flex flex-col items-center gap-4 sm:flex-row">
+    <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
       <div className="relative h-52 w-52 shrink-0">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -54,7 +54,7 @@ export function ExpenseDonut({
           <span className="text-sm font-semibold">{formatBRL(totalCents)}</span>
         </div>
       </div>
-      <ul className="w-full min-w-0 flex-1 space-y-1.5">
+      <ul className="w-full min-w-0 max-w-md space-y-1.5">
         {items.slice(0, 6).map((it) => (
           <li key={it.id} className="flex items-center justify-between gap-3 text-sm">
             <span className="flex min-w-0 items-center gap-2">
