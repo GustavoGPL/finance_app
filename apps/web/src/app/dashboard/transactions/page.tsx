@@ -124,7 +124,7 @@ export default function TransactionsPage() {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 rounded-xl border p-3 sm:grid-cols-2 xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-3 rounded-xl border bg-card p-3 sm:grid-cols-2 xl:grid-cols-5">
         <div className="space-y-1">
           <LabelText>Mês</LabelText>
           <Input
