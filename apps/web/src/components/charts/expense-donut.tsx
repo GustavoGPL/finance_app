@@ -54,9 +54,9 @@ export function ExpenseDonut({
           <span className="text-sm font-semibold">{formatBRL(totalCents)}</span>
         </div>
       </div>
-      <ul className="w-full space-y-1.5">
+      <ul className="w-full min-w-0 flex-1 space-y-1.5">
         {items.slice(0, 6).map((it) => (
-          <li key={it.id} className="flex items-center justify-between text-sm">
+          <li key={it.id} className="flex items-center justify-between gap-3 text-sm">
             <span className="flex min-w-0 items-center gap-2">
               <span
                 className="h-2.5 w-2.5 shrink-0 rounded-full"
@@ -64,9 +64,11 @@ export function ExpenseDonut({
               />
               <span className="truncate">{it.name}</span>
             </span>
-            <span className="tabular-nums">
+            <span className="shrink-0 whitespace-nowrap tabular-nums">
               {formatBRL(it.totalCents)}
-              <span className="ml-2 w-9 text-right text-xs text-muted-foreground">{it.percent}%</span>
+              <span className="ml-2 inline-block w-9 text-right text-xs text-muted-foreground">
+                {it.percent}%
+              </span>
             </span>
           </li>
         ))}
