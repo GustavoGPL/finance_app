@@ -84,8 +84,8 @@ export default function DashboardPage() {
             />
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-5">
-            <Card className="lg:col-span-3">
+          <div className="grid gap-4">
+            <Card>
               <CardHeader>
                 <CardTitle className="text-base">Evolução patrimonial</CardTitle>
                 <CardDescription>Patrimônio líquido nos últimos 6 meses.</CardDescription>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
                 <NetWorthChart data={netWorth.data ?? []} />
               </CardContent>
             </Card>
-            <Card className="lg:col-span-2">
+            <Card>
               <CardHeader>
                 <CardTitle className="text-base">Gastos por categoria</CardTitle>
                 <CardDescription>Distribuição das despesas do mês.</CardDescription>
